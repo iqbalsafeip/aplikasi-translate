@@ -1,0 +1,27 @@
+.btn-translate {
+    background-color: #FAFAFA !important;
+    color: #1A73E8 !important;
+    font-weight: 600 !important;
+}
+
+.active {
+    background-color: #E4ECFA !important;
+}
+
+.text-translate {
+    color: #1A73E8 !important;
+    font-weight: 600 !important;
+}
+
+.w-screen {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.input-translate {
+    height: 5vh !important;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 3vh !important;
+}
