@@ -1,6 +1,10 @@
 <?php 
     include 'koneksi.php';
-    $res = $Translate->get_vocabs();
+    $sort = 'ASC';
+    if(isset($_GET['sort'])){
+        $sort = $_GET['sort'];
+    }
+    $res = $Translate->get_vocabs("ORDER BY sunda ". $sort);
 ?>
 
 <!doctype html>
@@ -17,8 +21,18 @@
   <body>
     <div class="container">
         <h1 class="text-center">Kelola Data</h1>
-        <a href="index.php" class="btn btn-warning">Kembali</a>
-        <a href="create.php" class="btn btn-success">Tambah Kata</a>
+        <div class="row">
+        <div class="col-8">
+            <a href="index.php" class="btn btn-warning">Kembali</a>
+            <a href="create.php" class="btn btn-success">Tambah Kata</a>
+            <span class="text-muted">Jumlah vocab : <?= $Translate->count_vocabs()['jml']; ?></span>
+        </div>
+            <div class="col-4">
+                <span class="text-muted">Sort By:  </span>
+                <a href="?sort=ASC" class="btn btn-secondary rounded-pill">ASC</a>
+                <a href="?sort=DESC" class="btn btn-secondary rounded-pill">DESC</a>
+            </div>
+        </div>
         <table class="table table-striped table-dark mt-3">
             <thead>
                 <tr>

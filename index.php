@@ -3,12 +3,21 @@
     include 'icons.php';
     $tindo='Terjemahan';
     $tsunda='';
+    $selaras = null;
     if(isset($_GET['submit']) && $_GET['kata'] != ''){
         $kata = $_GET['kata'];
         $data = $Translate->get_vocabs_like($kata);
-        if($data){
-            $tsunda = $data[0]['sunda'];
-            $tindo = $data[0]['indo'];
+        $hasil = $Translate->get_vocab_equal($kata);
+        if($hasil){
+            $tsunda = $hasil['sunda'];
+            $tindo = $hasil['indo'];
+        } else if($data){
+            $tsunda = $_GET['kata'];
+            $tindo = $_GET['kata'];
+            $selaras = $data;
+        } else {
+            $tsunda = $_GET['kata'];
+            $tindo = $_GET['kata'];
         }
     }
 ?>
@@ -42,17 +51,28 @@
                 <form method="GET" action="" >
                     <div class="row">
                         <div class=" col-md-6 px-md-5 px-4 ">
-                            <input type="text" name="kata" value="<?= $tsunda ?>" class="input-translate" id="kata" aria-describedby="emailHelp">
+                            <input type="text" name="kata" autofocus='true' placeholder="Sunda" value="<?= $tsunda ?>" class="input-translate" id="kata" aria-describedby="emailHelp">
                         </div>
                         <div class=" col-md-6  px-4">
                             <h3 class="text-muted"><?= $tindo ?></h3>
                         </div>
                     </div>
                     <div class="px-5 py-3 row justify-content-end">
+                        <a class="btn shadow-sm btn-light rounded-pill mt-5 mr-2" href="index.php" ><?= icon('TRASH', '#000') ?>  Clear</a>
                         <button class="btn btn-primary rounded-pill mt-5" name="submit" ><?= icon('TRANSLATE', '#fff') ?>  Translate</button>
                     </div>
                 </form>
         </div>
+        <?php if(isset($selaras)) { ?>
+        <div class="card card-body mt-3">
+            <p class="text-muted">Selaras dengan <span class="font-weight-bold"><?= $_GET['kata'] ?></span></p>
+            <div class="row">
+            <?php foreach($selaras as $ksama) : ?>
+                <a href="index.php?kata=<?= $ksama['sunda'] ?>&submit=" class="btn btn-light shadow-sm mx-2 my-2 rounded-pill"><?= $ksama['sunda'] ?></a>
+            <?php endforeach ?>
+            </div>
+        </div>
+        <?php } ?>
     </div>
 
     <!-- Optional JavaScript -->

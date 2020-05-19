@@ -6,7 +6,7 @@
         private $password = '';
         private $dbname = '';
         private $conn = '';
-        public function set_db_info($sname, $username, $password, $dbname){
+        public function set_db_config($sname, $username, $password, $dbname){
             $this->servername = $sname;
             $this->username = $username;
             $this->password = $password;
@@ -32,8 +32,18 @@
             return $res;
         }
 
-        public function get_vocabs(){
-            $result = mysqli_query($this->conn, "SELECT * FROM vocab");
+        public function get_vocab_equal($word){
+            $result = mysqli_query($this->conn, "SELECT * FROM vocab WHERE sunda='$word'");
+            $data = mysqli_fetch_assoc($result);
+            return $data;
+        }
+
+        public function count_vocabs(){
+            return mysqli_fetch_assoc(mysqli_query($this->conn, 'SELECT COUNT(*) AS jml FROM vocab'));
+        }
+
+        public function get_vocabs($args = ''){
+            $result = mysqli_query($this->conn, "SELECT * FROM vocab " . $args);
             $res = [];
             while($data = mysqli_fetch_assoc($result)){
                 $res[] = $data;

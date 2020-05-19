@@ -4,7 +4,6 @@
     if(isset($_POST['submit'])){
         $sunda = $_POST['sunda'];
         $indo = $_POST['indo'];
-
         $Translate->create_vocab($sunda, $indo);
     }
 ?>
@@ -26,7 +25,7 @@
         <form class="mt-3" method="POST" action="" >
             <div class="form-group">
                 <label for="sunda">Kata Sunda</label>
-                <input type="text" name="sunda" class="form-control" id="sunda" aria-describedby="emailHelp">
+                <input type="text" autofocus='true' name="sunda" class="form-control" id="sunda" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="indo">Indonesia</label>
